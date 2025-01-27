@@ -122,5 +122,6 @@ function onClickedEstimatePriceHTML() {
   });
 }
 
+
 // Execute the function on page load
 window.onload = onPageLoad;

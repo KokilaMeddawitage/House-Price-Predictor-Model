@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import util
 
 app = Flask(__name__)
+CORS(app)
 
 #get all locations which the columns of the dataset to view in the UI to select the House location
 #util is file contatining locations
