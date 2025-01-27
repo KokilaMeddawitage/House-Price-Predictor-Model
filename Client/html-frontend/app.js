@@ -88,6 +88,40 @@ function onClickedEstimatePrice() {
   });
 }
 
+function onClickedEstimatePriceHTML() {
+  console.log("Estimate price button clicked");
+
+  var sqft = document.getElementById("uiSqft");
+  var bhk = getBHKValue();
+  var bathrooms = getBathValue();
+  var location = document.getElementById("uiLocations");
+  var estPrice = document.getElementById("uiEstimatedPrice");
+
+  console.log("Inputs: ", sqft.value, bhk, bathrooms, location.value);
+
+  var url = "http://127.0.0.1:5000/predict_home_price_html_frontend";
+  $.post(
+    url,
+    {
+      total_sqft: parseInt(sqft.value),
+      bhk: bhk,
+      bath: bathrooms,
+      location: location.value,
+    },
+    function (data, status) {
+      console.log("Response: ", data.estimated_price);
+      estPrice.innerHTML = data.estimated_price.toString() + " Lakh";
+      estPrice.classList.remove("hidden");
+      estPrice.classList.add("visible");
+    }
+  ).fail(function () {
+    console.error("Failed to get price estimate.");
+    estPrice.innerHTML = "Could not fetch price. Try again later.";
+    estPrice.classList.remove("hidden");
+    estPrice.classList.add("visible");
+  });
+}
+
 
 // Execute the function on page load
 window.onload = onPageLoad;
